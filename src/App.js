@@ -1,6 +1,8 @@
 import "./index.css"
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import startImg from "./start.jpeg"
+
 
 function App() {
   const audioRef = useRef(null);
@@ -40,12 +42,15 @@ function App() {
         <source src="/sound.mp3" type="audio/mpeg" />
       </audio>
       
+      <div className={`${open ? "opacity-100" : "opacity-0"} transition duration-500`}>
+        <img src={startImg} alt=""/>
+      </div>
 
-      <div className="h-screen w-full bg-gray-100 flex items-center justify-center">
-      <div className="h-screen w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+      {!open && (
+        <div className="absolute inset-0 h-screen w-full bg-gray-100 flex items-center justify-center overflow-hidden">
 
       <motion.div
-        initial={{ y: -470, x: 0, rotate: 0, opacity: 1 }}
+        initial={{ y: -475, x: 0, rotate: 0, opacity: 1 }}
         animate={{
           y: 0,
           x:      [0, 80, -70, 60, -50, 30, -30, 5, 0],
@@ -81,10 +86,10 @@ function App() {
           </svg>
         </div>
       </div>
-        
       </motion.div>
     </div>
-    </div>
+      )}
+
     </div>
   );
 }
