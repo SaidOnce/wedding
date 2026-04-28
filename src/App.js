@@ -42,9 +42,23 @@ function App() {
         <source src="/sound.mp3" type="audio/mpeg" />
       </audio>
       
-      <div className={`${open ? "opacity-100" : "opacity-0"} transition duration-500`}>
-        <img src={startImg} alt=""/>
-      </div>
+      <div className={`${open ? "opacity-100" : "opacity-0"} transition duration-500 relative`}>
+  
+  <img src={startImg} alt="" className="w-full" />
+
+  <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center -translate-y-10">
+    <p
+      className="text-5xl md:text-8xl drop-shadow-lg"
+      style={{ fontFamily: "Great Vibes, cursive" }}>
+      Рашид и Инара
+    </p>
+    <p
+      className="text-4xl md:text-7xl drop-shadow-lg"
+      style={{ fontFamily: "Great Vibes, cursive" }}>
+      26/06/26
+    </p>
+  </div>
+</div>
 
       {!open && (
         <div className="absolute inset-0 h-screen w-full bg-gray-100 flex items-center justify-center overflow-hidden">
