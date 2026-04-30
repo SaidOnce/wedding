@@ -2,9 +2,42 @@ import "./index.css"
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import startImg from "./start.jpeg"
+import endImg from "./end.jpeg"
+import dateImg from "./date.jpeg"
+
 
 
 function App() {
+  const targetDate = new Date("2026-06-26T18:00:00"); // 👈 твоя дата события
+
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      return null;
+    }
+
+    return {
+      days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((diff / (1000 * 60)) % 60),
+      seconds: Math.floor((diff / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+    // eslint-disable-next-line
+  }, []);
+
+  //TIMER END
   const audioRef = useRef(null);
   useEffect(() => {
     
@@ -36,17 +69,31 @@ function App() {
   const [open, setOpen] = useState(false);
   const [canClick, setCanClick] = useState(false);
 
-  return (
-    <div className="bg-gray-100 h-[100dvh]">
-      <audio ref={audioRef} loop>
+  useEffect(() => {
+  if (!open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [open]);
+<audio ref={audioRef} loop>
         <source src="/sound.mp3" type="audio/mpeg" />
       </audio>
+  return (
+    <div className="overflow-x-hidden">
+      
       
       <div className={`${open ? "opacity-100" : "opacity-0"} transition duration-500 relative`}>
   
-  <img src={startImg} alt="" className="w-full" />
+  <div className="">
+    <img src={startImg} alt="" className="w-full" />
+  </div>
 
-  <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center -translate-y-10">
+  <div className="absolute inset-0 h-screen flex flex-col items-center justify-center text-white text-center -translate-y-56">
     <p
       className="text-5xl md:text-8xl drop-shadow-lg"
       style={{ fontFamily: "Great Vibes, cursive" }}>
@@ -57,14 +104,150 @@ function App() {
       style={{ fontFamily: "Great Vibes, cursive" }}>
       26/06/26
     </p>
+    
+    <div className="absolute bottom-16 h-32 w-full bg-gradient-to-b from-transparent to-[#353535]" />
+  </div>
+     
+    <div className="h-[100vh] text-center bg-gradient-to-b from-[#353535] to-gray-100 relative flex  items-center">
+
+      <div className="flex flex-col gap-20 translate-y-32">
+        <div>
+          
+          {open ? (<div>
+            <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className="text-xl"
+          >
+            <div className="text-4xl italic text-white">
+              Ассаламу алейкум!
+            </div>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className="text-xl"
+          >
+            <div className="text-3xl italic">
+              الـسَّـلَامُ عَـلَـيْـكُـمْ
+            </div>
+          </motion.div>
+          </div>): (<div></div>)}
+
+        </div>
+
+        <div className="px-1 flex flex-col gap-7">
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className="text-xl"
+          >
+            <div className="text-xl italic text-left">
+          С радостью и благодарностью приглашаем вас разделить с нами один из самых важных и счастливых дней в нашей жизни — день нашей свадьбы.
+            </div>
+          </motion.div>
+
+
+            <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className="text-xl"
+          >
+            <div className="text-xl italic text-right">
+    В этот особенный день мы хотим окружить себя близкими и дорогими людьми, чьё присутствие наполнит праздник теплом, радостью и искренними улыбками
+
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </div>
+
+  <div>
+    <img src={dateImg} alt="" className="w-full" />
+  </div>
+
+  <div className="flex gap-8 flex-col items-center justify-center bg-gray-100 py-24">
+    <div className="text-5xl" style={{fontFamily: "Amatic SC, sans-serif"}}>НАЧАЛО</div>
+    <div className="w-1 h-16 bg-black mx-4"></div>
+    <div className="text-3xl" style={{fontFamily: "Playfair Display, serif"}}>18:00</div>
+    <div className="flex flex-col gap-10 text-center mt-5 text-3xl"
+    style={{fontFamily: "Playfair Display, serif"}}>
+          <motion.div
+            initial={{ opacity: 0, x: 120 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className=""
+          >
+                  Место проведения
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className=""
+          >
+                  Ресторан «Камалия»
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className=""
+          >
+                  Кульджинский тракт 98
+          </motion.div>
+    </div>
+  </div>
+
+  <div className="relative h-full">
+    <img src={endImg} alt="" className="w-full" />
+    <div className="absolute inset-0 top-96 flex item-center justify-center">
+
+<div className="flex gap-2 text-white text-3xl font-semibold">
+  <div className="text-center">
+    <div className="text-3xl text-yellow-300">{timeLeft.days}</div>
+    <div className="text-2xl ">Дней</div>
+  </div>
+:
+  <div className="text-center">
+    <div className="text-3xl text-yellow-300">{timeLeft.hours}</div>
+    <div className="text-2xl">Часов</div>
+  </div>
+:
+  <div className="text-center">
+    <div className="text-3xl text-yellow-300">{timeLeft.minutes}</div>
+    <div className="text-2xl ">Минут</div>
+  </div>
+:
+  <div className="text-center">
+    <div className="text-3xl text-yellow-300">{timeLeft.seconds}</div>
+    <div className="text-2xl ">Секунд</div>
   </div>
 </div>
 
+    </div>
+  </div>
+
+</div>
+
       {!open && (
-        <div className="absolute inset-0 h-screen w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+        <div className="bg-white absolute inset-0 h-screen w-full flex items-center justify-center overflow-hidden">
 
       <motion.div
-        initial={{ y: -475, x: 0, rotate: 0, opacity: 1 }}
+        initial={{ y: -480, x: 0, rotate: 0, opacity: 1 }}
         animate={{
           y: 0,
           x:      [0, 80, -70, 60, -50, 30, -30, 5, 0],
@@ -77,10 +260,8 @@ function App() {
           delay: .5
         }}
         onAnimationComplete={() => setCanClick(true)}
-        className="w-40 h-24 bg-red-400 rounded-md flex items-center justify-center"
-      >
-        
-        <div className="h-[100dvh] w-full bg-gray-100 relative overflow-hidden">
+        className="w-40 h-24 bg-red-400 rounded-md flex items-center justify-center">
+        <div className="h-[100dvh] w-full  relative overflow-hidden">
         <div
           onClick={() => {
             canClick && setOpen(true);
