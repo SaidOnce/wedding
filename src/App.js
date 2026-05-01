@@ -80,20 +80,19 @@ function App() {
     document.body.style.overflow = "auto";
   };
 }, [open]);
-<audio ref={audioRef} loop>
-        <source src="/sound.mp3" type="audio/mpeg" />
-      </audio>
+
   return (
     <div className="overflow-x-hidden">
+      <audio ref={audioRef} loop>
+        <source src="/sound.mp3" type="audio/mpeg" />
+      </audio>
       
       
       <div className={`${open ? "opacity-100" : "opacity-0"} transition duration-500 relative`}>
   
-  <div className="">
+  <div className="relative">
     <img src={startImg} alt="" className="w-full" />
-  </div>
-
-  <div className="absolute inset-0 h-screen flex flex-col items-center justify-center text-white text-center -translate-y-56">
+    <div className="absolute inset-0 h-screen flex flex-col items-center justify-center text-white text-center -translate-y-56">
     <p
       className="text-5xl md:text-8xl drop-shadow-lg"
       style={{ fontFamily: "Great Vibes, cursive" }}>
@@ -105,8 +104,11 @@ function App() {
       26/06/26
     </p>
     
-    <div className="absolute bottom-16 h-32 w-full bg-gradient-to-b from-transparent to-[#353535]" />
   </div>
+  <div className="absolute bottom-0 h-32 w-full bg-gradient-to-b from-transparent to-[#353535]" />
+  </div>
+
+  
      
     <div className="h-[100vh] text-center bg-gradient-to-b from-[#353535] to-gray-100 relative flex  items-center">
 
