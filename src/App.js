@@ -81,6 +81,47 @@ function App() {
   };
 }, [open]);
 
+  // anketa
+  
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      if (name.length < 4){
+        alert("Минимальная длина имени 3 символа")
+        return
+      } 
+      if (status === ""){
+        alert("Выберите 'Приду' если придёте или 'Не приду' если нет")
+        return
+      } 
+      await fetch("https://script.google.com/macros/s/AKfycbyzWWwEoA9QIFb8cbp64Kx-Ox8Le6jJWy7Y9VwtCDyFMt4enY74STcrDWjAFTlsfC23/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify({
+          name,
+          status,
+        }),
+      });
+
+      alert("Отправлено ❤️");
+
+    } catch (error) {
+      alert("Ошибка отправки");
+      console.error(error);
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="overflow-x-hidden">
       <audio ref={audioRef} loop>
@@ -92,11 +133,11 @@ function App() {
   
   <div className="relative">
     <img src={startImg} alt="" className="w-full" />
-    <div className="absolute inset-0 h-screen flex flex-col items-center justify-center text-white text-center -translate-y-56">
+    <div className="absolute inset-0 h-screen flex flex-col items-center justify-center text-white text-center -translate-y-56 gap-4">
     <p
       className="text-5xl md:text-8xl drop-shadow-lg"
       style={{ fontFamily: "Great Vibes, cursive" }}>
-      Рашид и Инара
+      Рашид & Инара
     </p>
     <p
       className="text-4xl md:text-7xl drop-shadow-lg"
@@ -115,24 +156,37 @@ function App() {
       <div className="flex flex-col gap-20 translate-y-32">
         <div>
           
-          {open ? (<div>
+          {open ? (<div className="flex flex-col gap-5" style={{fontFamily: "Playfair Display, serif"}}>
             <motion.div
             initial={{ opacity: 0, x: -80 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1.5, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            viewport={{ once: false, amount: .75 }}
+            viewport={{ once: true, amount: .75 }}
             className="text-xl"
           >
             <div className="text-4xl italic text-white">
+              ДОРОГИЕ ГОСТИ!
+            </div>
+          </motion.div>
+
+            <motion.div
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 2, x: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            viewport={{ once: true, amount: .75 }}
+            className="text-xl"
+          >
+            <div className="
+            text-4xl italic text-white">
               Ассаламу алейкум!
             </div>
           </motion.div>
           
           <motion.div
-            initial={{ opacity: 0, x: 80 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -80 }}
+            whileInView={{ opacity: 2.5, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            viewport={{ once: false, amount: .75 }}
+            viewport={{ once: true, amount: .75 }}
             className="text-xl"
           >
             <div className="text-3xl italic">
@@ -143,28 +197,42 @@ function App() {
 
         </div>
 
-        <div className="px-1 flex flex-col gap-7">
+        <div className="px-1 flex flex-col gap-7 text-center" 
+        style={{fontFamily: "Playfair Display, serif"}}>
           <motion.div
             initial={{ opacity: 0, y: 80 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 1.4, ease: "easeOut" }}
+            viewport={{ once: false, amount: .75 }}
+            className="text-xl px-2"
+          >
+            <div className="text-xl italic">
+          С радостью и благодарностью приглашаем вас разделить с нами один из самых важных и счастливых дней в нашей жизни — день нашей
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
             viewport={{ once: false, amount: .75 }}
             className="text-xl"
           >
-            <div className="text-xl italic text-left">
-          С радостью и благодарностью приглашаем вас разделить с нами один из самых важных и счастливых дней в нашей жизни — день нашей свадьбы.
+            <div className="text-4xl italic font-bold"
+            style={{ fontFamily: "Great Vibes, cursive" }}>
+              свадьбы!
             </div>
           </motion.div>
 
 
             <motion.div
             initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1.4, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: false, amount: .75 }}
             className="text-xl"
           >
-            <div className="text-xl italic text-right">
+            <div className="text-xl italic px-2">
     В этот особенный день мы хотим окружить себя близкими и дорогими людьми, чьё присутствие наполнит праздник теплом, радостью и искренними улыбками
 
             </div>
@@ -179,16 +247,16 @@ function App() {
   </div>
 
   <div className="flex gap-8 flex-col items-center justify-center bg-gray-100 py-24">
-    <div className="text-5xl" style={{fontFamily: "Amatic SC, sans-serif"}}>НАЧАЛО</div>
+    <div className="text-4xl" style={{fontFamily: "Playfair Display, serif"}}>НАЧАЛО</div>
     <div className="w-1 h-16 bg-black mx-4"></div>
     <div className="text-3xl" style={{fontFamily: "Playfair Display, serif"}}>18:00</div>
     <div className="flex flex-col gap-10 text-center mt-5 text-3xl"
     style={{fontFamily: "Playfair Display, serif"}}>
           <motion.div
-            initial={{ opacity: 0, x: 120 }}
+            initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
-            viewport={{ once: false, amount: .75 }}
+            viewport={{ once: false, amount: .6 }}
             className=""
           >
                   Место проведения
@@ -203,7 +271,7 @@ function App() {
                   Ресторан «Камалия»
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, x: -80 }}
+            initial={{ opacity: 0, x: 80 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: false, amount: .75 }}
@@ -286,6 +354,70 @@ function App() {
       </motion.div>
     </div>
       )}
+
+    <form onSubmit={handleSubmit} className="px-4 text-center gap-10 h-screen flex flex-col items-center justify-center" style={{fontFamily: "Playfair Display, serif"}}>
+      <div className="text-5xl">
+        АНКЕТА
+      </div>
+      <div className="text-3xl">
+        Подтвердите своё присутствие!
+      </div>
+      <div className="text-xl">
+        Ваше имя и фамилия (Если будете с парой, укажите ваши имена)
+      </div>
+
+      <div className="w-full">
+        <input
+        type="text"
+        placeholder="Ваше имя"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+          className="p-4 border rounded-xl w-full placeholder:text-xl"
+        />
+      </div>
+
+      <div className="w-full text-3xl flex">
+        <label className="flex items-center gap-3 cursor-pointer w-full">
+        <input
+          type="radio"
+          name="attendance"
+          value="Приду"
+          checked={status === "Приду"}
+          onChange={(e) => setStatus(e.target.value)}
+          className="w-5 h-5"
+        />
+
+        <span>Приду</span>
+      </label>
+
+      <label className="flex items-center gap-3 cursor-pointer w-full">
+        <input
+          type="radio"
+          name="attendance"
+          value="Не приду"
+          checked={status === "Не приду"}
+          onChange={(e) => setStatus(e.target.value)}
+          className="w-5 h-5"
+        />
+
+        <span>Не приду</span>
+      </label>
+      </div>
+      
+      <div>
+        <button
+        disabled={loading}
+        className="
+          bg-black text-white p-4 text-3xl rounded-lg
+          transition
+          disabled:opacity-50
+        "
+      >
+        {loading ? "Отправка..." : "Отправить"}
+      </button>
+      </div>
+      
+    </form>
 
     </div>
   );

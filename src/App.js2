@@ -1,0 +1,70 @@
+import { useState } from "react";
+
+export default function RSVPForm() {
+
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await fetch("https://script.google.com/macros/s/AKfycbyzWWwEoA9QIFb8cbp64Kx-Ox8Le6jJWy7Y9VwtCDyFMt4enY74STcrDWjAFTlsfC23/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "text/plain;charset=utf-8",
+  },
+  body: JSON.stringify({
+    name,
+    status,
+  }),
+
+    alert("Отправлено ❤️");
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-4"
+    >
+
+      <input
+        type="text"
+        placeholder="Ваше имя"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        className="p-4 border"
+      />
+
+      <label className="flex items-center gap-3 cursor-pointer">
+        <input
+          type="radio"
+          name="attendance"
+          value="Приду"
+          checked={status === "Приду"}
+          onChange={(e) => setStatus(e.target.value)}
+          className="w-5 h-5"
+        />
+
+        <span>Приду</span>
+      </label>
+
+      <label className="flex items-center gap-3 cursor-pointer">
+        <input
+          type="radio"
+          name="attendance"
+          value="Не приду"
+          checked={status === "Не приду"}
+          onChange={(e) => setStatus(e.target.value)}
+          className="w-5 h-5"
+        />
+
+        <span>Не приду</span>
+      </label>
+
+      <button className="bg-black text-white p-4">
+        Отправить
+      </button>
+
+    </form>
+  );
+}
