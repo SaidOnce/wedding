@@ -2,8 +2,8 @@ import "./index.css"
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import startImg from "./start.jpeg"
-import endImg from "./end.jpeg"
 import dateImg from "./date.jpeg"
+import timerImg from "./timer.jpeg"
 
 
 
@@ -249,7 +249,7 @@ function App() {
   <div className="flex gap-8 flex-col items-center justify-center bg-gray-100 py-24">
     <div className="text-4xl" style={{fontFamily: "Playfair Display, serif"}}>НАЧАЛО</div>
     <div className="w-1 h-16 bg-black mx-4"></div>
-    <div className="text-3xl" style={{fontFamily: "Playfair Display, serif"}}>18:00</div>
+    <div className="text-3xl" style={{fontFamily: "Playfair Display, serif"}}>17:00</div>
     <div className="flex flex-col gap-10 text-center mt-5 text-3xl"
     style={{fontFamily: "Playfair Display, serif"}}>
           <motion.div
@@ -283,28 +283,33 @@ function App() {
   </div>
 
   <div className="relative h-full">
-    <img src={endImg} alt="" className="w-full" />
-    <div className="absolute inset-0 top-96 flex item-center justify-center">
-
-<div className="flex gap-2 text-white text-3xl font-semibold">
-  <div className="text-center">
-    <div className="text-3xl text-yellow-300">{timeLeft.days}</div>
-    <div className="text-2xl ">Дней</div>
+    <img src={timerImg} alt="" className="w-full" />
+  <div className="absolute inset-0 top-80 flex item-center justify-center">
+      
+<div className="flex flex-col gap-10">
+  <div className="text-center text-5xl text-white" style={{ fontFamily: "Great Vibes, cursive" }}>
+    До свадьбы осталось
   </div>
-:
-  <div className="text-center">
-    <div className="text-3xl text-yellow-300">{timeLeft.hours}</div>
-    <div className="text-2xl">Часов</div>
-  </div>
-:
-  <div className="text-center">
-    <div className="text-3xl text-yellow-300">{timeLeft.minutes}</div>
-    <div className="text-2xl ">Минут</div>
-  </div>
-:
-  <div className="text-center">
-    <div className="text-3xl text-yellow-300">{timeLeft.seconds}</div>
-    <div className="text-2xl ">Секунд</div>
+  <div className="flex gap-2 text-white text-3xl font-semibold">
+    <div className="text-center">
+      <div className="text-3xl tracking-widest">{timeLeft.days}</div>
+      <div className="text-2xl ">Дней</div>
+    </div>
+  :
+    <div className="text-center">
+      <div className="text-3xl tracking-widest">{timeLeft.hours}</div>
+      <div className="text-2xl">Часов</div>
+    </div>
+  :
+    <div className="text-center">
+      <div className="text-3xl tracking-widest">{timeLeft.minutes}</div>
+      <div className="text-2xl ">Минут</div>
+    </div>
+  :
+    <div className="text-center">
+      <div className="text-3xl tracking-widest">{timeLeft.seconds}</div>
+      <div className="text-2xl ">Секунд</div>
+    </div>
   </div>
 </div>
 
@@ -363,7 +368,7 @@ function App() {
         Подтвердите своё присутствие!
       </div>
       <div className="text-xl">
-        Ваше имя и фамилия (Если будете с парой, укажите ваши имена)
+        Ваше имя и фамилия
       </div>
 
       <div className="w-full">

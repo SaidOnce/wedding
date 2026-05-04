@@ -5,21 +5,22 @@ export default function RSVPForm() {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-    await fetch("https://script.google.com/macros/s/AKfycbyzWWwEoA9QIFb8cbp64Kx-Ox8Le6jJWy7Y9VwtCDyFMt4enY74STcrDWjAFTlsfC23/exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "text/plain;charset=utf-8",
-  },
-  body: JSON.stringify({
-    name,
-    status,
-  }),
+      await fetch("https://script.google.com/macros/s/AKfycbyzWWwEoA9QIFb8cbp64Kx-Ox8Le6jJWy7Y9VwtCDyFMt4enY74STcrDWjAFTlsfC23/exec", {
+    method: "POST",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8",
+    },
+    body: JSON.stringify({
+      name,
+      status,
+    }),
+  });
 
-    alert("Отправлено ❤️");
-  };
+      alert("Отправлено ❤️");
+    };
 
   return (
     <form
