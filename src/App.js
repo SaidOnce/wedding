@@ -4,11 +4,14 @@ import { motion } from "framer-motion";
 import startImg from "./start.jpeg"
 import dateImg from "./date.jpeg"
 import timerImg from "./timer.jpeg"
+import logo from "./logo.png"
 
 
 
 function App() {
-  const targetDate = new Date("2026-06-26T18:00:00"); // 👈 твоя дата события
+  const targetDate = new Date("2026-06-26T17:00:00");
+
+  const isMobile = window.innerWidth <= 768;
 
   const calculateTimeLeft = () => {
     const now = new Date();
@@ -87,6 +90,8 @@ function App() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [side, setSide] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -100,7 +105,11 @@ function App() {
         alert("Выберите 'Приду' если придёте или 'Не приду' если нет")
         return
       } 
-      await fetch("https://script.google.com/macros/s/AKfycbyzWWwEoA9QIFb8cbp64Kx-Ox8Le6jJWy7Y9VwtCDyFMt4enY74STcrDWjAFTlsfC23/exec", {
+      if (side === "") {
+        alert("Выберите с чьей вы стороны, жениха или невесты");
+        return;
+      }
+      await fetch("https://script.google.com/macros/s/AKfycbyD892op0nbwMuOEN6fjihdQ5L52YV8c_0tZca365YNg8DD6Kjl_p3vJ0AdPzpl93nh/exec", {
         method: "POST",
         headers: {
           "Content-Type": "text/plain;charset=utf-8",
@@ -108,6 +117,7 @@ function App() {
         body: JSON.stringify({
           name,
           status,
+          side
         }),
       });
 
@@ -121,6 +131,27 @@ function App() {
       setLoading(false);
     }
   };
+
+  if (!isMobile) {
+    return (
+      <div className="
+        h-screen
+        flex
+        flex-col
+        items-center
+        justify-center
+        text-center
+        text-3xl
+        p-10
+      ">
+        Данная страница доступна только на мобильных утройствах!
+        <div>
+          📱
+        </div>
+      </div>
+    );
+  }
+
 
   return (
     <div className="overflow-x-hidden">
@@ -279,6 +310,25 @@ function App() {
           >
                   Кульджинский тракт 98
           </motion.div>
+          <a
+  href="https://2gis.kz/almaty/geo/70000001033473247/77.052419,43.342814"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    inline-flex
+    items-center
+    justify-center
+    px-6
+    py-4
+    rounded-2xl
+    border-2
+    border-black
+    text-black
+    text-xl
+  "
+>
+  Открыть в <img className="mx-3 w-32" src={logo}/> 
+</a>
     </div>
   </div>
 
@@ -407,6 +457,36 @@ function App() {
 
         <span>Не приду</span>
       </label>
+      </div>
+
+      <div className="w-full text-2xl flex gap-4">
+
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="radio"
+            name="side"
+            value="Жених"
+            checked={side === "Жених"}
+            onChange={(e) => setSide(e.target.value)}
+            className="w-5 h-5"
+          />
+
+          <span>Со стороны жениха</span>
+        </label>
+
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="radio"
+            name="side"
+            value="Невеста"
+            checked={side === "Невеста"}
+            onChange={(e) => setSide(e.target.value)}
+            className="w-5 h-5"
+          />
+
+          <span>Со стороны невесты</span>
+        </label>
+
       </div>
       
       <div>
